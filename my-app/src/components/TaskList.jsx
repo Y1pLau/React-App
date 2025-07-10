@@ -4,8 +4,8 @@ import { TaskRow } from './TaskRow';
 function TaskList() {
   // Store temporary edits per task index
   const [tempEdits, setTempEdits] = useState([]);
-  const { tasks} = useContext(TaskContext);
-return (
+  const { tasks, taskDispatch } = useContext(TaskContext);
+  return (
     <table className="table">
       <thead>
         <tr>
@@ -18,7 +18,7 @@ return (
       <tbody>
         {tasks?.map((task) => {
           const temp = tempEdits?.find((edit) => edit.id === task.id);
-          return <TaskRow temp={temp} task={task} setTempEdits={setTempEdits } tempEdits={tempEdits} />
+          return <TaskRow key={task.id} task={task} temp={temp} setTempEdits={setTempEdits} taskDispatch={taskDispatch} />
         })}
       </tbody>
     </table>
