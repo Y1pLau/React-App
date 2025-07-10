@@ -5,14 +5,14 @@ import { TaskProvider } from '../context/TaskContext';
 import { FilterPanel } from '../components/FilterPanel';
 import { useState } from 'react';
 function Tasks() {
-  const [selectIsDone,setSelectIsDone] = useState('all');
+  const [filterTask,setFilterTask] = useState({isDone:'all',title:''});
   return (
     <TaskProvider>
       <div className="mx-auto w-50">
         <h2>My Tasks</h2>
         <TaskForm />
-        <FilterPanel selectIsDone={selectIsDone}  setSelectIsDone={setSelectIsDone}/>
-        <TaskList selectIsDone={selectIsDone} />
+        <FilterPanel filterTask={filterTask}  setFilterTask={setFilterTask}/>
+        <TaskList filterTask={filterTask} />
       </div>
     </TaskProvider>
   );
