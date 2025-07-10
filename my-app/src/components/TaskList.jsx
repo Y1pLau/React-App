@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { TaskContext } from '../context/TaskContext';
 import { TaskRow } from './TaskRow';
-function TaskList() {
+const TaskList = React.memo(function  TaskList({selectIsDone}) {
   // Store temporary edits per task index
   const [tempEdits, setTempEdits] = useState([]);
   const { tasks, taskDispatch } = useContext(TaskContext);
@@ -17,12 +17,14 @@ function TaskList() {
       </thead>
       <tbody>
         {tasks?.map((task) => {
+          if(selectIsDone==String(task?.isDone) || selectIsDone==='all'){
           const temp = tempEdits?.find((edit) => edit.id === task.id);
           return <TaskRow key={task.id} task={task} temp={temp} setTempEdits={setTempEdits} taskDispatch={taskDispatch} />
+         }
         })}
       </tbody>
     </table>
   );
-}
+})
 
 export default TaskList;

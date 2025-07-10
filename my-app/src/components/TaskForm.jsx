@@ -3,7 +3,8 @@ import React, { useState, useContext, memo } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { TaskContext } from '../context/TaskContext';
 
-const TaskForm = memo(function TaskForm() {
+const TaskForm = React.memo(function TaskForm() {
+  console.log('test');
   const [title, setTitle] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [isDone, setDone] = useState(false);

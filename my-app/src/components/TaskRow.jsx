@@ -2,7 +2,6 @@ import { memo, useContext } from 'react';
 import { TaskContext } from '../context/TaskContext';
 import { areTasksEqual } from '../utils/areEqual';
 export const TaskRow = memo(function TaskRow({ temp, setTempEdits, task, taskDispatch }) {
-
   const handleChange = (id, field, value) => {
     setTempEdits((prev) => {
       const exit = prev.find((task) => task.id === id);
