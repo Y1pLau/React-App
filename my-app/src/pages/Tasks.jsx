@@ -1,7 +1,7 @@
 import TaskForm from '../components/TaskForm';
 import TaskList from '../components/TaskList';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { TaskProvider } from '../context/TaskContext';
+import { TaskProvider } from '../hooks/context/TaskContext';
 import { FilterPanel } from '../components/FilterPanel';
 import { useState } from 'react';
 function Tasks() {

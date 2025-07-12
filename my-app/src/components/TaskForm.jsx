@@ -1,7 +1,7 @@
 
 import React, { useState, useContext, memo } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { TaskContext } from '../context/TaskContext';
+import { TaskContext } from '../hooks/context/TaskContext';
 
 const TaskForm = React.memo(function TaskForm() {
   console.log('test');

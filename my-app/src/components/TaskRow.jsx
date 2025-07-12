@@ -1,5 +1,5 @@
 import { memo, useContext } from 'react';
-import { TaskContext } from '../context/TaskContext';
+import { TaskContext } from '../hooks/context/TaskContext';
 import { areTasksEqual } from '../utils/areEqual';
 export const TaskRow = memo(function TaskRow({ temp, setTempEdits, task, taskDispatch }) {
   const handleChange = (id, field, value) => {
