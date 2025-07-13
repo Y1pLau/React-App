@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import {login,logout} from '../features/auth/authSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    // For now, just log the values
-    console.log('Username:', userName);
-    console.log('Password:', password);
+    dispatch(login());
+    navigate("/" );
   };
 
   return (

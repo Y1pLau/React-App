@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
-import { TaskContext } from '../hooks/context/TaskContext';
+import React, { useState } from 'react';
 import { TaskRow } from './TaskRow';
+import {useSelector} from 'react-redux';
 const TaskList = React.memo(function  TaskList({filterTask}) {
   // Store temporary edits per task index
   const [tempEdits, setTempEdits] = useState([]);
-  const { tasks, taskDispatch } = useContext(TaskContext);
+  const  tasks= useSelector((state)=>state.tasks);
   return (
     <table className="table">
       <thead>
@@ -17,10 +17,9 @@ const TaskList = React.memo(function  TaskList({filterTask}) {
       </thead>
       <tbody>
         {tasks?.map((task) => {
-          console.log(task?.title.includes(filterTask?.title),task?.title,filterTask?.title);
           if((filterTask?.isDone===String(task?.isDone) || filterTask?.isDone==='all')&& task?.title.includes(filterTask?.title)){
           const temp = tempEdits?.find((edit) => edit.id === task.id);
-          return <TaskRow key={task.id} task={task} temp={temp} setTempEdits={setTempEdits} taskDispatch={taskDispatch} />
+          return <TaskRow key={task.id} task={task} temp={temp} setTempEdits={setTempEdits} />
          }
         })}
       </tbody>

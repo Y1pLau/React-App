@@ -1,8 +1,8 @@
-import TaskForm from '../components/TaskForm';
-import TaskList from '../components/TaskList';
+import TaskForm from '../features/tasks/TaskForm';
+import TaskList from '../features/tasks/TaskList';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { TaskProvider } from '../hooks/context/TaskContext';
-import { FilterPanel } from '../components/FilterPanel';
+import { FilterPanel } from '../features/tasks/FilterPanel';
 import { useState } from 'react';
 function Tasks() {
   const [filterTask,setFilterTask] = useState({isDone:'all',title:''});

@@ -1,20 +1,20 @@
 
-import React, { useState, useContext, memo } from 'react';
+import React, { useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { TaskContext } from '../hooks/context/TaskContext';
-
-const TaskForm = React.memo(function TaskForm() {
-  console.log('test');
+import  {addTask} from './tasksSlice';
+import { useDispatch } from 'react-redux';
+const TaskForm = function TaskForm() {
   const [title, setTitle] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [isDone, setDone] = useState(false);
-  const { taskDispatch } = useContext(TaskContext);
+  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title || !dueDate) return;
-    taskDispatch({ type: 'ADD_TASK', payload: { 'title': title, 'dueDate': dueDate, 'isDone': isDone } });
+    dispatch(addTask({  'title': title, 'dueDate': dueDate, 'isDone': isDone } ));
     setTitle('');
     setDueDate('');
+
   };
 
   return (
@@ -43,6 +43,6 @@ const TaskForm = React.memo(function TaskForm() {
       <button type="submit" className="btn btn-primary">Add Task</button>
     </form>
   );
-})
+}
 
 export default TaskForm;

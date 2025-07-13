@@ -1,19 +1,22 @@
 
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 import Home from './pages/Home';
 import Tasks from './pages/Tasks';
-
+import LoginPage from './pages/LoginPage';
+import PrivateRoute from './routes/PrivateRoute';
+import Navbar from './components/Navbar';
 function App() {
+
   return (
     <div>
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/tasks">Tasks</Link>
-      </nav>
-      <hr />
+      <Navbar/>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/tasks" element={<Tasks />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route element={<PrivateRoute/>}>
+          <Route path="/" element={<Home />} />
+          <Route path="/tasks" element={<Tasks />} />
+        </Route>
       </Routes>
     </div>
   );

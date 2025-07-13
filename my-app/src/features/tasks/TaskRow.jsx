@@ -1,7 +1,9 @@
 import { memo, useContext } from 'react';
-import { TaskContext } from '../hooks/context/TaskContext';
-import { areTasksEqual } from '../utils/areEqual';
-export const TaskRow = memo(function TaskRow({ temp, setTempEdits, task, taskDispatch }) {
+import { areTasksEqual } from '../../utils/areEqual';
+import { useDispatch } from 'react-redux';
+import  {editTask,deleteTask,toggleDoneTask} from './tasksSlice';
+export const TaskRow = memo(function TaskRow({ temp, setTempEdits, task}) {
+  const dispatch=useDispatch();
   const handleChange = (id, field, value) => {
     setTempEdits((prev) => {
       const exit = prev.find((task) => task.id === id);
@@ -21,7 +23,7 @@ export const TaskRow = memo(function TaskRow({ temp, setTempEdits, task, taskDis
       dueDate: edit?.dueDate ?? task.dueDate,
       isDone: task.isDone,
     };
-    taskDispatch({ type: 'EDIT_TASK', payload: { id: task.id, editTask: updatedTask } });
+    dispatch(editTask({ id: task.id, editTask: updatedTask } ));
   };
   return (
     <tr key={task.id}>
@@ -31,7 +33,7 @@ export const TaskRow = memo(function TaskRow({ temp, setTempEdits, task, taskDis
             className="form-check-input"
             type="checkbox"
             checked={task.isDone}
-            onChange={() => taskDispatch({ type: 'TOGGLE_DONE', payload: { id: task.id } })}
+            onChange={() => dispatch(toggleDoneTask({ id: task.id } ))}
           />
         </div>
       </td>
@@ -64,7 +66,7 @@ export const TaskRow = memo(function TaskRow({ temp, setTempEdits, task, taskDis
           <div className="col">
             <button
               className="btn btn-danger btn-sm w-100"
-              onClick={() => taskDispatch({ type: 'DELETE_TASK', payload: { id: task.id } })}
+              onClick={() => dispatch(deleteTask({ id: task.id } ))}
             >
               Delete
             </button>
