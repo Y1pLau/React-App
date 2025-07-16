@@ -7,4 +7,3 @@ function Navbar() {
     )
 }
 export default Navbar;
-1234
