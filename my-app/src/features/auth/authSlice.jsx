@@ -1,18 +1,44 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
+        user: null,
         isAuthenticated: false,
+        error: null,
     },
     reducers: {
-        login: (state)=> {
-            state.isAuthenticated=true
-        },
-        logout:(state)=> {
-            state.isAuthenticated=false
+        logout: (state) => {
+            state.user = null;
+            state.isAuthenticated = false;
+            state.error = null;
         }
+    }, extraReducers: (builder) => {
+        builder
+            .addCase(loginAsync.fulfilled, (state, action) => {
+                state.isAuthenticated = true;
+                state.user = action.payload.user;
+                state.error = null;
+            })
+            .addCase(loginAsync.rejected, (state, action) => {
+                state.isAuthenticated = false;
+                state.user = null;
+                state.error = action.error.message;
+            });
     }
-})
-export const { login, logout} = authSlice.actions
+});
+export const loginAsync = createAsyncThunk('auth/login',
+    async ({ userName, password }) => {
+        const response = await fetch('http://localhost:3000/user/login', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "userName": userName, "password": password }),
+        });
+        if (!response.ok) throw new Error('Login failed');
+        return await response.json();
+    }
+);
+export const { login, logout } = authSlice.actions
 export default authSlice.reducer

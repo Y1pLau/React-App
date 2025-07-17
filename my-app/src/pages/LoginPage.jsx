@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
-import {login,logout} from '../features/auth/authSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginAsync } from '../features/auth/authSlice';
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  const error = useSelector(state => state.authentication.error);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login());
-    navigate("/" );
+    try {
+      await dispatch(loginAsync({ userName, password })).unwrap();
+      navigate("/");
+    } catch (err) {
+       console.log(err);
+    }
   };
 
   return (
@@ -35,6 +41,7 @@ function LoginPage() {
           required
         />
         <button type="submit">Login</button>
+        {error && <div style={{ color: 'red' }}>{error}</div>}
       </form>
     </div>
   );
