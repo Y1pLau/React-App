@@ -1,6 +1,8 @@
 const express = require('express')
 const taskController = require('../controllers/taskController.js');
 const router = express.Router();
+const verifyToken = require('../middleware/authMiddleware');
+router.use(verifyToken);
 router.get('/getAllTasks',taskController.getAllTasks);
-router.post('/addTask',taskController.addTask);
+router.post('/createTask',taskController.createTask);
 module.exports = router;
