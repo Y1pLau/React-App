@@ -1,17 +1,16 @@
 
-import React, { useState} from 'react';
+import { useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import  {addTask} from './tasksSlice';
 import { useDispatch } from 'react-redux';
+import { createTaskAsync } from './tasksSlice';
 const TaskForm = function TaskForm() {
   const [title, setTitle] = useState('');
   const [dueDate, setDueDate] = useState('');
-  const [isDone, setDone] = useState(false);
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title || !dueDate) return;
-    dispatch(addTask({  'title': title, 'dueDate': dueDate, 'isDone': isDone } ));
+    dispatch(createTaskAsync({task: { title, dueDate } }));
     setTitle('');
     setDueDate('');
 
