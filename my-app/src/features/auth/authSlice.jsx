@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -37,8 +37,10 @@ export const loginAsync = createAsyncThunk('auth/login',
             body: JSON.stringify({ "userName": userName, "password": password }),
         });
         if (!response.ok) throw new Error('Login failed');
-        return await response.json();
+        const data=await response.json();
+        localStorage.setItem('token', data.token);
+        return data;
     }
 );
-export const { login, logout } = authSlice.actions
+export const {  logout } = authSlice.actions
 export default authSlice.reducer
