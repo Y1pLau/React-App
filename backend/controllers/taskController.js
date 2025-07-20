@@ -1,7 +1,9 @@
 const Task = require('../models/Task');
 const mongoose = require('mongoose');
-exports.addTask=async (req,res)=>{
-    const task= new Task(req.body);
+exports.createTask=async (req,res)=>{
+    const { title, dueDate } = req.body;
+    const userID = req.user.id || req.user._id || req.user.userID;
+    const task= new Task({title,dueDate,userID});
     await task.save();
     res.status(201).json(task);
 }
