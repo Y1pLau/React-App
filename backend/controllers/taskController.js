@@ -8,6 +8,7 @@ exports.createTask=async (req,res)=>{
     res.status(201).json(task);
 }
 exports.getAllTasks=async (req,res)=>{
-    const tasks=await Task.find();
+    const userID = req.user.id || req.user._id || req.user.userID;
+    const tasks=await Task.find({userID});
     res.json(tasks);
 }

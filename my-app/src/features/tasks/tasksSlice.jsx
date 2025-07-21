@@ -1,7 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { apiFetch } from '../../utils/apiFetch';
+export const fetchTasksListByUserID= createAsyncThunk('task/fetchTaskListByUserID',async(dispatch)=>{
+    const response=await apiFetch('http://localhost:3000/task/fetchTaskListByUserID',{method: 'GET'}, dispatch);
+    return response;
+})
 export const tasksSlice = createSlice({
     name: 'tasks',
-    initialState: JSON.parse(localStorage.getItem('tasks')) || [],
+    initialState: [],
     reducers: {
         loadTasks: (state,action) => {
             return action.payload;
@@ -29,6 +34,13 @@ export const tasksSlice = createSlice({
                         console.log('work');
                     })
                     .addCase(createTaskAsync.rejected, (state, action) => {
+                        console.log('Rejected action:', action);
+                    })
+                    .addCase(fetchTasksListByUserID.fulfilled, (state, action) => {
+                        console.log("fetchTasksListByUserID");
+                        return action.payload;
+                    })
+                    .addCase(fetchTasksListByUserID.rejected, (state, action) => {
                         console.log('Rejected action:', action);
                     });
                 }

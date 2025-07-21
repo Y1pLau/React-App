@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { TaskRow } from './TaskRow';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 const TaskList = React.memo(function  TaskList({filterTask}) {
   // Store temporary edits per task index
   const [tempEdits, setTempEdits] = useState([]);
-  const  tasks= useSelector((state)=>state.tasks);
+  const tasks = useSelector((state) => state.tasks);
   return (
     <table className="table">
       <thead>
