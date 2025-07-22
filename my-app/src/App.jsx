@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React,{useEffect} from 'react';
 import { Routes, Route} from 'react-router-dom';
 import Home from './pages/Home';
 import Tasks from './pages/Tasks';
@@ -7,7 +7,6 @@ import LoginPage from './pages/LoginPage';
 import PrivateRoute from './routes/PrivateRoute';
 import Navbar from './components/Navbar';
 function App() {
-
   return (
     <div>
       <Navbar/>

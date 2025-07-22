@@ -12,7 +12,7 @@ function verifyToken(req, res, next) {
     req.user = decoded; // Attach user data (e.g., id) to request
     next(); // Token is valid, go to next step
   } catch (err) {
-    return res.status(403).json({ message: 'Invalid or expired token' });
+    return res.status(401).json({ message: 'Invalid or expired token' }); // Use 401
   }
 }
 module.exports= verifyToken;

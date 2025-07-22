@@ -1,5 +1,8 @@
 import { logout } from '../features/auth/authSlice'; 
-export const apiFetch = async (url, options = {}, dispatch) => {
+export const apiFetch = async (url, options = {},dispatch,navigate) => {
+     const token = localStorage.getItem('token');
+
+     
      const headers = {
         ...options.headers,
         Authorization: token ? `Bearer ${token}` : '',
@@ -11,10 +14,9 @@ export const apiFetch = async (url, options = {}, dispatch) => {
         headers,
     });
 
-    if (response.status === 403) {
-        localStorage.removeItem('token');
+    if (response.status === 401) {
         if (dispatch) dispatch(logout());
-        navigate("/");
+        if (navigate) navigate('/login');
         throw new Error('Unauthorized');
     }
 

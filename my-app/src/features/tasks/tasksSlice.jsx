@@ -1,9 +1,18 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { apiFetch } from '../../utils/apiFetch';
-export const fetchTasksListByUserID= createAsyncThunk('task/fetchTaskListByUserID',async(dispatch)=>{
-    const response=await apiFetch('http://localhost:3000/task/fetchTaskListByUserID',{method: 'GET'}, dispatch);
-    return response;
-})
+export const fetchTasksListByUserID = createAsyncThunk(
+    'task/fetchTaskListByUserID',
+    async ({ navigate }, thunkAPI) => {
+        const { dispatch } = thunkAPI;
+        const response = await apiFetch(
+            'http://localhost:3000/task/fetchTaskListByUserID',
+            { method: 'GET' },
+            dispatch,
+            navigate
+        );
+        return response;
+    }
+);
 export const tasksSlice = createSlice({
     name: 'tasks',
     initialState: [],
